@@ -1,0 +1,14 @@
+{
+  "name": "bot",
+  "version": "2.0.0",
+  "description": "A pluggable chat bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeremy Darling <jeremy.darling@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "simple-xmpp": "^0.1.92"
+  }
+}

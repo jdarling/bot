@@ -1,0 +1,9 @@
+/node_modules
+/logs
+logs/
+node_modules/
+npm-debug.log
+.idea
+.env
+config/
+/config.js
