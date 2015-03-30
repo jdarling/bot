@@ -9,6 +9,7 @@
   "author": "Jeremy Darling <jeremy.darling@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "simple-xmpp": "^0.1.92"
+    "simple-xmpp": "^0.1.92",
+    "glob": "~5.0.3"
   }
 }

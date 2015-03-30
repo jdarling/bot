@@ -25,6 +25,6 @@ module.exports = [
     name: 'Eliza Bot',
     expression: /.*/,
     handler: handler,
-    priority: -1
+    priority: -2
   }
 ];

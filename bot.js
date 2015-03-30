@@ -11,7 +11,6 @@ var processRequest = function(options){
         match: match,
         handled: caught
       }, options, true);
-      console.log(caught);
       rule.handler(opts);
       caught++;
     }
@@ -36,7 +35,7 @@ xmpp.on('chat', function(from, message) {
     from: from,
     message: message,
     reply: function(message){
-      return xmpp.send(from, message, true);
+      return xmpp.send(from, message);
     }
   });
 });

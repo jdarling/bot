@@ -22,7 +22,7 @@ module.exports = function(options){
   var commands = options.rules;
   return {
     name: 'Help Command',
-    expression: /^(bot help|help)$/i,
+    expression: /^help$/i,
     handler: helpHandler(commands)
   };
 };
