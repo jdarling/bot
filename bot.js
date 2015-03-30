@@ -1,6 +1,22 @@
 var config = require('./lib/config');
-
+var utils = require('./lib/utils');
 var xmpp = require('simple-xmpp');
+
+var processRequest = function(options){
+  var caught = 0;
+  rules.forEach(function(rule){
+    var match = rule.expression.exec(options.message);
+    if(match){
+      var opts = utils.extend({
+        match: match,
+        handled: caught
+      }, options, true);
+      console.log(caught);
+      rule.handler(opts);
+      caught++;
+    }
+  });
+};
 
 xmpp.on('online', function(data) {
   console.log('Connected with JID: ' + data.jid.user);
@@ -15,7 +31,14 @@ xmpp.on('online', function(data) {
 });
 
 xmpp.on('chat', function(from, message) {
-  console.log(from, ' chats ' + message);
+  processRequest({
+    xmpp: xmpp,
+    from: from,
+    message: message,
+    reply: function(message){
+      return xmpp.send(from, message, true);
+    }
+  });
 });
 
 var started, startupTimeout;
@@ -48,19 +71,16 @@ xmpp.on('groupchat', function(conference, from, message, stamp) {
     if(startupTimeout){
       clearTimeout(startupTimeout);
     }
-    startupTimeout = setTimeout(ready, 100);
+    startupTimeout = setTimeout(ready, 1000);
   }
   if(started){
-    rules.forEach(function(rule){
-      var match = rule.expression.exec(message);
-      if(match){
-        rule.handler({
-          xmpp: xmpp,
-          conference: conference,
-          from: from,
-          message: message,
-          match: match
-        });
+    processRequest({
+      xmpp: xmpp,
+      conference: conference,
+      from: from,
+      message: message,
+      reply: function(message){
+        return xmpp.send(conference, message, true);
       }
     });
   }
